@@ -1,7 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { TallyModal } from '@/components/landing/TallyModal';
 
 const Hero = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="bg-[#F8FAFC] w-full h-screen flex items-center justify-center px-4">
       <div className="mx-auto max-w-7xl w-full h-full flex items-center justify-center">
@@ -17,19 +23,23 @@ const Hero = () => {
               interactions for dApps and exchanges.
             </p>
             <div className="mt-6 flex gap-4 justify-center lg:justify-start">
-              <Link
-                href="#"
+              {/* Botón para abrir el modal */}
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className="inline-flex items-center justify-center rounded-lg bg-[#1A2E44] px-6 py-3 text-base font-medium text-white shadow-md transition hover:bg-[#16324A]"
                 aria-label="Book a demo"
               >
                 Book a Demo
-              </Link>
+              </button>
+
               <Link
-                href="#"
+                href="https://docs.wavynode.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-lg border border-[#1A2E44] px-6 py-3 text-base font-medium text-[#1A2E44] transition hover:bg-[#1A2E44] hover:text-white"
                 aria-label="Learn more"
               >
-                Docs Coming Soon
+                Documentation 
               </Link>
             </div>
           </div>
@@ -76,6 +86,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal de Tally */}
+      <TallyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

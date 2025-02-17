@@ -1,33 +1,24 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Header } from "@/components/dashboard/header";
-import "../globals.css";
+"use client";
 
-const inter = Inter({ subsets: ["latin"] });
+import { usePrivy } from "@privy-io/react-auth";
+import type { ReactNode } from "react";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { WavyDashboardSidebar } from "@/components/dashboard/wavy-dashboard-sidebar";
+import WelcomeScreen from "@/components/dashboard/welcome-screen";
 
-export const metadata: Metadata = {
-  title: "Wavy Node",
-  description: "Find the status of an address",
-};
+export default function DashboardLayout({ children }: { children: ReactNode }) {
+  const { authenticated, login } = usePrivy();
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+  if (!authenticated) {
+    return <WelcomeScreen login={login} />;
+  }
+
   return (
-    <div
-      className={`${inter.className} min-h-screen bg-background flex flex-col`}
-    >
-      <Header>
-        <main className="flex-grow">{children}</main>
-        <footer className="py-6 text-center text-sm text-muted-foreground">
-          <a
-            href="https://t.me/wavynode"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline"
-          >
-            @wavynode
-          </a>
-        </footer>
-      </Header>
-    </div>
+    <SidebarProvider defaultOpen>
+      <div className="flex min-h-screen bg-background">
+        <WavyDashboardSidebar />
+        <main className="flex-1 p-6">{children}</main>
+      </div>
+    </SidebarProvider>
   );
 }

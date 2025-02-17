@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Twitter, Github } from "lucide-react";
 
@@ -39,7 +41,7 @@ export default function Footer() {
           </a>
         </div>
         <p className="mt-4 text-center text-xs text-[#64748B] sm:mt-6 sm:text-sm">
-          &copy; 2024 Wavy Node. All rights reserved.
+          &copy; 2025 Wavy Node. All rights reserved.
         </p>
       </div>
     </footer>
